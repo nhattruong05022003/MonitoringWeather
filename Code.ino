@@ -11,17 +11,17 @@
 #include "soc/timer_group_struct.h"
 #include "soc/timer_group_reg.h"
 
-#define TRIGGER_PIN 5
+
 // JSON configuration file
 #define JSON_CONFIG_FILE "/telegram_config.json"
 
 // Wifi
-const char* ssid = "NhatTruong";
-const char* password = "05022003";
+const char* ssid = "YOUR_SSID";
+const char* password = "YOUR_PASSWORD";
 
 // Telegram bot
-char BOTtoken[100] = "7176428161:AAG-DEiBrDt7Lun8mwRR6tK6iub2m9vW67M"; // your Bot Token (Get from Botfather)
-char CHAT_ID[50] = "2039503754";
+char BOTtoken[100] = "BOT_TOKEN"; // your Bot Token (Get from Botfather)
+char CHAT_ID[50] = "CHAT_ID";
 
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
@@ -39,10 +39,10 @@ float real_temperature = 0;
 
 // Weather API
 String url = "https://api.openweathermap.org/data/2.5/weather?";
-char apiKey[50] = "85fd4d07a3ed404ac836c994c32a2663";
+char apiKey[50] = "OPENWEATHER_API_KEY";
 
-char lat[20] = "10.8594787";
-char lon[20] = "106.772738";
+char lat[20] = "YOUR_LATITUDE";
+char lon[20] = "YOUR_LONGTITUDE";
 
 // WiFiManager, Local intialization. Once its business is done, there is no need to keep it around
 WiFiManager wm;
@@ -211,7 +211,6 @@ void handleNewMessages(int numNewMessages) {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-  pinMode(TRIGGER_PIN, INPUT_PULLUP);
 
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
