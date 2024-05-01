@@ -72,3 +72,5 @@
   + Wait a few seconds for the MCU to connect the wifi.
 
 DONE ! NOW YOU CAN MONITORING YOUR LOCAL AND CITY WEATHER VIA YOUR TELEGRAM BOT.
+
+# NOTE: You can go to https://openweathermap.org/current, find the API Call to check the url of the OpenWeatherMap json file. If it doesn't look like the one in the code. Just change it.
