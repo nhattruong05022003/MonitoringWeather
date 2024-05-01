@@ -62,7 +62,7 @@
  
     ![image](https://github.com/nhattruong05022003/MonitoringWeather/assets/145974955/28509d00-90bb-4094-8825-653c891eda88)
 
-  + Click to Configurate Wifi. It will direct you to the configuration page.
+  + Click to Configure Wifi. It will direct you to the configuration page.
     
   + Type all the information here
  
@@ -73,4 +73,6 @@
 
 DONE ! NOW YOU CAN MONITORING YOUR LOCAL AND CITY WEATHER VIA YOUR TELEGRAM BOT.
 
-NOTE: You can go to https://openweathermap.org/current, find the API Call to check the url of the OpenWeatherMap json file. If it doesn't look like the one in the code. Just change it.
+NOTE1: You can go to https://openweathermap.org/current, find the API Call to check the url of the OpenWeatherMap json file. If it doesn't look like the one in the code. Just change it.
+
+NOTE2: If you want to change the configuration just reset the MCU and follow steps in "How to use" section again.
