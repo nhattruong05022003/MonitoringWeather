@@ -17,7 +17,7 @@
 
        Give your bot a name and username.
        
-    4.If your bot is successfully created, you’ll receive a message with a link to access your newly created bot and the bot token. Bot token is a unique id that we will be using later to communicate with the bot.
+    4. If your bot is successfully created, you’ll receive a message with a link to access your newly created bot and the bot token. Bot token is a unique id that we will be using later to communicate with the bot.
 
       ![image](https://github.com/nhattruong05022003/MonitoringWeather/assets/145974955/e9cce325-625c-4eaa-8698-ec6cf74d7ad0)
     
