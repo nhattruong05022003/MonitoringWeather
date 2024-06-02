@@ -52,6 +52,8 @@ bool shouldSaveConfig = false;
 
 String mesg = "";
 HTTPClient http;
+
+int t1 = 0;
 // Save config in json format
 void saveConfigFile(){
   Serial.println("Saving configuation...");
@@ -217,7 +219,7 @@ void setup() {
   // Supress Debug information
   wm.setDebugOutput(false); // ko in cac dong debug
   // Remove any previous network settings
-  wm.resetSettings();
+  // wm.resetSettings();
 
   // Doc file json
   bool forceConfig = false; // change to true when testing to force configuration every time we run
@@ -268,7 +270,7 @@ void setup() {
 
   
   // Set up Wifi and Telegram Bot
-  if(!wm.startConfigPortal("WifiManage")){
+  if(!wm.autoConnect("WifiManager")){
     Serial.println("Failed to connect and hit timeout");
     delay(1000);
     ESP.restart();
@@ -299,8 +301,6 @@ void setup() {
   if(shouldSaveConfig){
     saveConfigFile();
   }
-  bot.longPoll = 60; // This should reduce amount of data used by the bot
-
   // Dummy run
   http.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
   int httpCode = http.GET();
@@ -318,5 +318,12 @@ void loop() {
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
     lastTimeBotRan = millis();
+  }
+  if(millis() - t1 > 180000 && t1 != 0){
+    ESP.restart();
+    t1 = millis();
+  }
+  else if(t1 == 0){
+    t1 = millis();
   }
 }
