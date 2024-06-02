@@ -26,7 +26,7 @@ char CHAT_ID[50] = "CHAT_ID";
 WiFiClientSecure client;
 UniversalTelegramBot bot(BOTtoken, client);
 
-int botRequestDelay = 2500;
+int botRequestDelay = 3000;
 unsigned long lastTimeBotRan;
 
 // DHT11
