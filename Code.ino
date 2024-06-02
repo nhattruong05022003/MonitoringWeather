@@ -319,7 +319,7 @@ void loop() {
     }
     lastTimeBotRan = millis();
   }
-  if(millis() - t1 > 150000 && t1 != 0){
+  if(millis() - t1 > 120000 && t1 != 0){
     ESP.restart();
     t1 = millis();
   }
