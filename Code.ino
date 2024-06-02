@@ -190,7 +190,7 @@ void handleNewMessages(int numNewMessages) {
       else{
         Serial.println("Error!");
       }
-
+      http.end();
       
       humidity = dht.readHumidity();
       temperature = dht.readTemperature();
@@ -299,6 +299,12 @@ void setup() {
   if(shouldSaveConfig){
     saveConfigFile();
   }
+  bot.longPoll = 60; // This should reduce amount of data used by the bot
+
+  // Dummy run
+  HTTPClient https;
+  https.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
+  int httpCode = https.GET();
 }
 
 void loop() {
