@@ -51,7 +51,7 @@ bool connected = false;
 bool shouldSaveConfig = false;
 
 String mesg = "";
-
+HTTPClient http;
 // Save config in json format
 void saveConfigFile(){
   Serial.println("Saving configuation...");
@@ -162,7 +162,7 @@ void handleNewMessages(int numNewMessages) {
     }
     if (text == "/sensor") {
       mesg = "";
-      HTTPClient http;
+      
       http.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
 
       int httpCode = http.GET();
@@ -302,9 +302,9 @@ void setup() {
   bot.longPoll = 60; // This should reduce amount of data used by the bot
 
   // Dummy run
-  HTTPClient https;
-  https.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
-  int httpCode = https.GET();
+  http.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
+  int httpCode = http.GET();
+  http.end();
 }
 
 void loop() {
