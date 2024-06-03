@@ -320,7 +320,7 @@ void loop() {
     lastTimeBotRan = millis();
   }
   if(millis() - t1 > 120000 && t1 != 0){
-    wm.autoConnect("WifiManager"); // reconnect wifi after 2 minute
+    ESP.restart(); // restart after 2 minute to prevent esp from hanging up
     t1 = millis();
   }
   else if(t1 == 0){
