@@ -15,9 +15,6 @@
 // JSON configuration file
 #define JSON_CONFIG_FILE "/telegram_config.json"
 
-// Wifi
-const char* ssid = "YOUR_SSID";
-const char* password = "YOUR_PASSWORD";
 
 // Telegram bot
 char BOTtoken[100] = "BOT_TOKEN"; // your Bot Token (Get from Botfather)
