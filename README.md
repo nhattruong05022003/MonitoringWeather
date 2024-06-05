@@ -75,4 +75,4 @@ DONE ! NOW YOU CAN MONITORING YOUR LOCAL AND CITY WEATHER VIA YOUR TELEGRAM BOT.
 
 NOTE1: You can go to https://openweathermap.org/current, find the API Call to check the url of the OpenWeatherMap json file. If it doesn't look like the one in the code. Just change it.
 
-NOTE2: If you want to change the configuration uncomment wm.resetSettings(), upload the code, follow "How to use", when ESP successfully connect to the wifi, comment wm.resetSettings(), upload the code again and done.
+NOTE2: If you want to change the configuration : hold BOOT button for 2-3 seconds, follow "How to use" above (from step 2).
