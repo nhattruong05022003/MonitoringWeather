@@ -54,6 +54,7 @@ String mesg = "";
 HTTPClient http;
 
 int t1 = 0;
+int c = 0;
 // Save config in json format
 void saveConfigFile(){
   Serial.println("Saving configuation...");
@@ -213,7 +214,8 @@ void handleNewMessages(int numNewMessages) {
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
-
+  pinMode(0, INPUT_PULLUP);
+  
   // Connect to Wi-Fi
   WiFi.mode(WIFI_STA);
   // Supress Debug information
@@ -255,27 +257,8 @@ void setup() {
   Serial.print("DHT11 connected !");
   Serial.println();
 
-  // // Turn off watchdog reset
-  // TIMERG1.wdt_wprotect = TIMG_WDT_WKEY_VALUE; // Unlock timer config.
-  // TIMERG1.wdt_feed = 1; // Reset feed count.
-  // TIMERG1.wdt_config0.en = 0; // Disable timer.
-  // TIMERG1.wdt_wprotect = 0; // Lock timer config.
-
-  // TIMERG0.wdt_wprotect = TIMG_WDT_WKEY_VALUE;
-  // TIMERG0.wdt_feed = 1;
-  // TIMERG0.wdt_config0.en = 0;
-  // TIMERG0.wdt_wprotect = 0;
-
-  // Serial.println("Turn off Watchdog reset !");
-
-  
-  // Set up Wifi and Telegram Bot
-  if(!wm.autoConnect("WifiManager")){
-    Serial.println("Failed to connect and hit timeout");
-    delay(1000);
-    ESP.restart();
-    delay(5000);
-  }
+  // Set up Wifi
+  wm.autoConnect("WifiManager")
 
   Serial.print("BOTtoken : ");
   Serial.println(text_box_bottoken.getValue());
@@ -325,5 +308,53 @@ void loop() {
   }
   else if(t1 == 0){
     t1 = millis();
+  }
+
+  if(digitalRead(0) == 0){
+    delay(20);
+    c = 0;
+    while(digitalRead(0) == 0){
+      c++;
+      delay(1);
+    }
+    if(c >= 1000){
+      WiFiManager manage;
+      manage.resetSettings();
+      // Define a text box, 50 characters maximum
+      WiFiManagerParameter text_box_bottoken("BOTToken", "Enter Telegram Bot Token here", BOTtoken, 100);
+      WiFiManagerParameter text_box_chatid("ChatID", "Enter your Telegram chat id here", CHAT_ID, 50);
+      WiFiManagerParameter text_box_api("APIKey", "Enter your API Key here", apiKey, 50);
+      WiFiManagerParameter text_box_lat("Latitude", "Enter your latitude here", lat, 20);
+      WiFiManagerParameter text_box_lon("Longtitude", "Enter your longtitude here", lon, 20);
+
+      // Add custom parameter
+      manage.addParameter(&text_box_bottoken);
+      manage.addParameter(&text_box_chatid);
+      manage.addParameter(&text_box_api);
+      manage.addParameter(&text_box_lat);
+      manage.addParameter(&text_box_lon);
+      manage.startConfigPortal("WifiManager");
+
+
+      Serial.print("BOTtoken : ");
+      Serial.println(text_box_bottoken.getValue());
+      strncpy(BOTtoken, text_box_bottoken.getValue(), sizeof(BOTtoken));
+      Serial.print("CHAT_ID : ");
+      Serial.println(text_box_chatid.getValue());
+      strncpy(CHAT_ID, text_box_chatid.getValue(), sizeof(CHAT_ID));
+      Serial.print("apiKey : ");
+      Serial.println(text_box_api.getValue());
+      strncpy(apiKey, text_box_api.getValue(), sizeof(apiKey));
+      Serial.print("Latitude : ");
+      Serial.println(text_box_lat.getValue());
+      strncpy(lat, text_box_lat.getValue(), sizeof(lat));
+      Serial.print("Longtitude : ");
+      Serial.println(text_box_lon.getValue());
+      strncpy(lon, text_box_lon.getValue(), sizeof(lon));
+
+      saveConfigFile();
+
+      t1 = 0;
+    }
   }
 }
