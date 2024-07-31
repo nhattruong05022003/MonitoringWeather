@@ -8,8 +8,7 @@
 #include <WiFiManager.h>
 #include <FS.h> // File System
 #include <SPIFFS.h> // SPI Flash System 
-#include "soc/timer_group_struct.h"
-#include "soc/timer_group_reg.h"
+#include <esp_task_wdt.h>
 
 
 // JSON configuration file
@@ -281,6 +280,18 @@ void setup() {
   if(shouldSaveConfig){
     saveConfigFile();
   }
+  // DISBALE WATCHDOG
+  esp_task_wdt_delete(NULL);
+  esp_task_wdt_deinit();
+  esp_task_wdt_config_t config = {
+    .timeout_ms = 60000,
+    .idle_core_mask = 0, // i.e. do not watch any idle task
+    .trigger_panic = false,
+    
+  };
+  esp_err_t err = esp_task_wdt_init(&config);
+  esp_task_wdt_add(NULL);
+  
   // Dummy run
   http.begin(url + "lat=" + lat +"&lon=" + lon + "&appid=" + apiKey);
   int httpCode = http.GET();
@@ -298,13 +309,6 @@ void loop() {
       numNewMessages = bot.getUpdates(bot.last_message_received + 1);
     }
     lastTimeBotRan = millis();
-  }
-  if(millis() - t1 > 120000 && t1 != 0){
-    ESP.restart(); // restart after 2 minute to prevent esp from hanging up
-    t1 = millis();
-  }
-  else if(t1 == 0){
-    t1 = millis();
   }
 
   if(digitalRead(0) == 0){
